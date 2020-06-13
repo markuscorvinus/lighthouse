@@ -5,12 +5,13 @@
         <CCardGroup>
           <CCard class="p-4">
             <CCardBody>
-              <CForm>
+              <CForm action="" method="post" @submit.prevent="onSubmit">
                 <h1>Login</h1>
                 <p class="text-muted">Sign In to your account</p>
                 <CInput
                   placeholder="Username"
                   autocomplete="username email"
+                  v-model="form.email"
                 >
                   <template #prepend-content><CIcon name="cil-user"/></template>
                 </CInput>
@@ -18,12 +19,13 @@
                   placeholder="Password"
                   type="password"
                   autocomplete="curent-password"
+                  v-model="form.password"
                 >
                   <template #prepend-content><CIcon name="cil-lock-locked"/></template>
                 </CInput>
                 <CRow>
                   <CCol col="6" class="text-left">
-                    <CButton color="primary" class="px-4">Login</CButton>
+                    <CButton type='submit' color="primary" class="px-4">Login</CButton>
                   </CCol>
                   <CCol col="6" class="text-right">
                     <CButton color="link" class="px-0">Forgot password?</CButton>
@@ -55,7 +57,27 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data() {
+      return {
+          form: {
+              email: '',
+              password: ''
+          }
+      };
+  },
+  methods: {
+      ...mapActions({
+          logIn: 'auth/logIn'
+      }),
+      onSubmit() {
+          this.logIn(this.form).then(() => {
+              this.$router.push({name: 'register'});
+          });
+      }
+  }
 }
 </script>

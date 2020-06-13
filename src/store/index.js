@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+import auth from './modules/auth'
+
 Vue.use(Vuex)
 
 const state = {
@@ -7,7 +10,7 @@ const state = {
   sidebarMinimize: false,
   user : {
     authenticated: false
-  }
+  },  
 }
 
 const mutations = {
@@ -26,5 +29,8 @@ const mutations = {
 
 export default new Vuex.Store({
   state,
-  mutations
+  mutations,
+  modules:{
+    auth
+  }
 })
