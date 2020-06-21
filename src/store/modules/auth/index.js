@@ -1,4 +1,4 @@
-import axios from '@/api';
+import axios from '@/services/http';
 
 export default {
     namespaced: true,
@@ -23,8 +23,17 @@ export default {
       },
     },
     actions: {
-      async logIn() {
-        return axios.get('/posts/1');
+      async logIn(_,payload ) {
+        await axios.get('/sanctum/csrf-cookie');
+        await axios.post('/v1/login', payload)
+        .then(() => {
+            axios.get('/v1/users')
+            .then(res => {
+              console.log(res.data);
+            });
+        })
+        .catch(() => console.log('pasok err'));
+        
       }
     }    
 };

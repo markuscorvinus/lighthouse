@@ -7,7 +7,6 @@ export default axios.create({
     timeoutErrorMessage: "Server took too long to respond",
     headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',        
+        'Content-Type': 'application/json', 
     }
 });

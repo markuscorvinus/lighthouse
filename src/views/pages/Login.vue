@@ -11,6 +11,7 @@
                 <CInput
                   placeholder="Username"
                   autocomplete="username email"
+                  required
                   v-model="form.email"
                 >
                   <template #prepend-content><CIcon name="cil-user"/></template>
@@ -19,13 +20,14 @@
                   placeholder="Password"
                   type="password"
                   autocomplete="curent-password"
+                  required
                   v-model="form.password"
                 >
                   <template #prepend-content><CIcon name="cil-lock-locked"/></template>
                 </CInput>
                 <CRow>
                   <CCol col="6" class="text-left">
-                    <CButton type='submit' color="primary" class="px-4">Login</CButton>
+                    <CButton type='submit' color="success" class="px-4" :pressed="isProcessing">Login</CButton>
                   </CCol>
                   <CCol col="6" class="text-right">
                     <CButton color="link" class="px-0">Forgot password?</CButton>
@@ -66,7 +68,8 @@ export default {
           form: {
               email: '',
               password: ''
-          }
+          },
+          isProcessing: false
       };
   },
   methods: {
@@ -74,8 +77,11 @@ export default {
           logIn: 'auth/logIn'
       }),
       onSubmit() {
+          this.isProcessing = true;
           this.logIn(this.form).then(() => {
-              this.$router.push({name: 'register'});
+            //this.$router.push({name: 'Home'});
+          }).finally(() => {
+              this.isProcessing = false;
           });
       }
   }

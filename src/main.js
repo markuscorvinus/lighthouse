@@ -6,8 +6,9 @@ import router from './router'
 import CoreuiVue from '@coreui/vue'
 import { iconsSet as icons } from './assets/icons/icons.js'
 import store from './store/index'
-import api from './api'
+import api from './services/http'
 
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 
 Vue.config.performance = true
@@ -23,6 +24,7 @@ new Vue({
   icons,
   template: '<App/>',
   components: {
-    App
+    App,
+    PulseLoader
   }
 })
